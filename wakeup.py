@@ -22,11 +22,15 @@ class Light(object):
         self._value = 0
         
     def set(self, value):
+    	if self._value == 0 and value > 0:
+            self._servo.start(1)
+            
         if value <= 0:
             self._servo.stop()
+            self._value = 0
             return
         elif value >= 1:
-            value = 1
+            self._value = 1
             self._servo.ChangeDutyCycle(100)
             self._servo.ChangeFrequency(0.1)
             return
